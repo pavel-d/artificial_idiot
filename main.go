@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/pavel-d/artificial_idiot/telegram_api"
+	"github.com/pavel-d/artificial_idiot/commands"
+	"github.com/pavel-d/artificial_idiot/telegram"
 	"log"
 	"os"
 )
@@ -13,14 +14,13 @@ func main() {
 		log.Fatal("Please set TELEGRAM_BOT_TOKEN env variable")
 	}
 
-	client := &telegram_api.TelegramClient{Token: telegramToken}
+	client := &telegram.Client{Token: telegramToken}
 	client.Connect()
 
-	bot := telegram_api.MakeBot(client)
+	bot := telegram.MakeBot(client)
 
-	bot.On("help", func(message telegram_api.Message, client telegram_api.TelegramClient) {
-		client.SendMessage(message.From.Id, message.Text)
-	})
+	bot.OnCommand("help", commands.HelpHandler)
+	bot.OnCommand("image", commands.GoogleImageHandler)
 
 	bot.Start()
 }
