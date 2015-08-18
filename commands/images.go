@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func GoogleImageHandler(message telegram.Message, bot *telegram.Bot, params []string) {
+func ImageFinder(message telegram.Message, bot *telegram.Bot, params []string) {
 	searchPhrase := strings.Join(params, " ")
 
 	image, err := google.RandomImage(searchPhrase)
@@ -21,7 +21,27 @@ func GoogleImageHandler(message telegram.Message, bot *telegram.Bot, params []st
 
 	bot.Once(message.From.Id, func(message telegram.Message, bot *telegram.Bot) {
 		if message.Text == "Yes" {
-			GoogleImageHandler(message, bot, params)
+			ImageFinder(message, bot, params)
+		}
+	})
+}
+
+func GifFinder(message telegram.Message, bot *telegram.Bot, params []string) {
+	searchPhrase := strings.Join(params, " ")
+
+	image, err := google.RandomGif(searchPhrase)
+
+	if err != nil {
+		message.Reply(err.Error())
+		return
+	}
+	message.Reply(image)
+	keyboard := telegram.KeyboardForOptions("Yes", "No")
+	message.ReplyWithKeyboardMarkup("Want more?", keyboard)
+
+	bot.Once(message.From.Id, func(message telegram.Message, bot *telegram.Bot) {
+		if message.Text == "Yes" {
+			GifFinder(message, bot, params)
 		}
 	})
 }

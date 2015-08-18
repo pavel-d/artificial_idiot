@@ -40,26 +40,6 @@ func (t *Client) Consume() <-chan Message {
 	return (<-chan Message)(t.messages)
 }
 
-func (t *Client) SendMessage(message *Message) *Message {
-	params := map[string]string{
-		"chat_id":             strconv.Itoa(message.From.Id),
-		"text":                message.Text,
-		"reply_to_message_id": strconv.Itoa(message.ReplyToMessageId),
-	}
-
-	if message.ReplyKeyboardMarkup != nil {
-		keyboard, _ := json.Marshal(message.ReplyKeyboardMarkup)
-		params["reply_markup"] = string(keyboard[:])
-	}
-
-	resp, _ := t.call("sendMessage", params)
-
-	var replyMessage Message
-
-	json.Unmarshal(resp.Result, &replyMessage)
-	return &replyMessage
-}
-
 func (t *Client) call(method string, params map[string]string) (*ApiResponse, error) {
 	log.Printf("Calling Telegram %v method", method)
 

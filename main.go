@@ -19,8 +19,9 @@ func main() {
 
 	bot := telegram.MakeBot(client)
 
-	bot.OnCommand("help", commands.HelpHandler)
-	bot.OnCommand("image", commands.GoogleImageHandler)
+	bot.OnCommand("help", commands.ImageFinder)
+	bot.OnCommand("img", commands.ImageFinder)
+	bot.OnCommand("gif", commands.GifFinder)
 
 	bot.Start()
 }
