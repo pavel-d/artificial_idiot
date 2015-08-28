@@ -31,6 +31,7 @@ func fetchRub() string {
 	defer ws.Close()
 
 	var msg = make([]byte, 512)
+	var n int
 
 	if n, err = ws.Read(msg); err != nil {
 		log.Fatal(err)
