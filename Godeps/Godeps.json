@@ -1,0 +1,10 @@
+{
+	"ImportPath": "github.com/pavel-d/artificial_idiot",
+	"GoVersion": "go1.5",
+	"Deps": [
+		{
+			"ImportPath": "golang.org/x/net/websocket",
+			"Rev": "7654728e381988afd88e58cabfd6363a5ea91810"
+		}
+	]
+}

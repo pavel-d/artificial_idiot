@@ -45,3 +45,7 @@ func GifFinder(message telegram.Message, bot *telegram.Bot, params []string) {
 		}
 	})
 }
+
+func GoogleSearch(message telegram.Message, bot *telegram.Bot, params []string) {
+	message.Reply("Not implemented")
+}
