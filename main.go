@@ -35,6 +35,6 @@ func main() {
 
 	bot.OnCommand("currency", commands.CurrencyHandler)
 
-	tools.StartHealthCheck(healthCheckPort)
+	go tools.StartHealthCheck(healthCheckPort)
 	bot.Start()
 }

@@ -13,7 +13,7 @@ func HelloServer(w http.ResponseWriter, req *http.Request) {
 
 func StartHealthCheck(port int) {
 	http.HandleFunc("/", HelloServer)
-	log.Printf("Starting health check handler on %s port", port)
+	log.Printf("Starting health check handler on %v port", port)
 	err := http.ListenAndServe(fmt.Sprintf(":%v", port), nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
