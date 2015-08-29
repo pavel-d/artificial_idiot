@@ -1,1 +1,1 @@
-worker: artificial_idiot
+web: artificial_idiot
