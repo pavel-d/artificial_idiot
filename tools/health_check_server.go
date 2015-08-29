@@ -7,7 +7,7 @@ import (
 )
 
 func HelloServer(w http.ResponseWriter, req *http.Request) {
-	w.WriteHeader(http.StatusNoContent)
+	w.WriteHeader(http.StatusOK)
 	log.Printf("Health check request: %s %s", req.RemoteAddr, req.RequestURI)
 }
 
