@@ -1,1 +1,1 @@
-web: bin/artificial_idiot
+web: artificial_idiot
