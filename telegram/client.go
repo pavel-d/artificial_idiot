@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"time"
 )
 
 const (
@@ -53,11 +54,20 @@ func (t *Client) call(method string, params map[string]string) (*ApiResponse, er
 
 	log.Printf("Request url: %v", requestUrl)
 	log.Printf("Request params: %v", values.Encode())
-	resp, err := http.PostForm(requestUrl, values)
 
-	if err != nil {
-		log.Fatal(err)
-		return nil, err
+	var resp *http.Response
+	var err error
+
+	for {
+		resp, err = http.PostForm(requestUrl, values)
+
+		if err == nil {
+			break
+		}
+
+		log.Println(err)
+		time.Sleep(1 * time.Second)
+		log.Println("Retrying...")
 	}
 
 	defer resp.Body.Close()
