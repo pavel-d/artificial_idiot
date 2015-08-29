@@ -1,0 +1,1 @@
+worker: artificial_idiot
